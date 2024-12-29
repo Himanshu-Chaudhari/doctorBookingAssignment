@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { signIn, signUp } from "../utils/authUtils";
 import { useNavigate } from "react-router";
-
-type InputProps = {
-    label: string;
-    id: string;
-    type: string;
-    placeholder: string;
-    onChangeFn : React.Dispatch<React.SetStateAction<string>>
-};
+import { InputProps, Role } from "../utils/types";
 
 const InputElement = ({ label, id, type, placeholder , onChangeFn }: InputProps) => {
     return (
@@ -27,7 +20,7 @@ const InputElement = ({ label, id, type, placeholder , onChangeFn }: InputProps)
     );
 };
 
-type Role = "patient" | "doctor" | null;
+
 
 
 export default function Auth({ operation , role  }: { operation: string , role : Role }) {

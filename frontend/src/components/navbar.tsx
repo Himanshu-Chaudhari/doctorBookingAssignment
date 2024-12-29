@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-
-interface NavbarProps {
-    setRole: (role: "patient" | "doctor") => void;
-    setOperation: (operation: "SignIn" | "SignUp") => void;
-}
+import { NavbarProps } from "../utils/types";
 
 export default function NavbarDB({ setRole, setOperation }: NavbarProps) {
     const [showSignInDropdown, setShowSignInDropdown] = useState(false);
@@ -27,60 +23,35 @@ export default function NavbarDB({ setRole, setOperation }: NavbarProps) {
             <div className="text-3xl px-5 py-2.5">Logo</div>
             <div className="relative flex">
                 <div className="relative">
-                    <button
-                        type="button"
-                        className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg px-5 py-2.5 me-2"
-                        onClick={() => {
+                    <button type="button"className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg px-5 py-2.5 me-2" onClick={() => {
                             setShowSignInDropdown((prev) => !prev);
-                            setShowSignUpDropdown(false);
-                        }}
-                    >
-                        Sign In
-                    </button>
+                            setShowSignUpDropdown(false);}}
+                    > Sign In </button>
                     {showSignInDropdown && (
                         <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
                             <button
                                 className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 onClick={() => handleSignIn("patient")}
-                            >
-                                Patient
-                            </button>
-                            <button
-                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >Patient</button>
+                            <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 onClick={() => handleSignIn("doctor")}
-                            >
-                                Doctor
-                            </button>
+                            > Doctor </button>
                         </div>
                     )}
                 </div>
                 <div className="relative">
-                    <button
-                        type="button"
-                        className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg px-5 py-2.5"
-                        onClick={() => {
+                    <button type="button"  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg px-5 py-2.5" onClick={() => {
                             setShowSignUpDropdown((prev) => !prev);
                             setShowSignInDropdown(false);
                         }}
-                    >
-                        Sign Up
-                    </button>
+                    > Sign Up </button>
                     {showSignUpDropdown && (
                         <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
-                            <button
-                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                onClick={() => handleSignUp("patient")}
-                            >
-                                Patient
-                            </button>
-                            <button
-                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                onClick={() => handleSignUp("doctor")}
-                            >
-                                Doctor
-                            </button>
-                        </div>
-                    )}
+                            <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={() => handleSignUp("patient")}
+                            > Patient </button>
+                            <button className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"onClick={() => handleSignUp("doctor")}
+                            >Doctor</button>
+                        </div>)}
                 </div>
             </div>
         </div>
@@ -94,13 +65,7 @@ export function Navbar(){
             <div className="text-3xl px-5 py-2.5">Logo</div>
             <div className="relative flex">
                 <div className="relative">
-                    <button
-                        type="button"
-                        className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg px-5 py-2.5 me-2"
-                        onClick={() => {
-                            navigate('/')
-                        }}
-                    >
+                    <button type="button" className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg px-5 py-2.5 me-2"onClick={() => { navigate('/') }}>
                         Log Out
                     </button>
                 </div>

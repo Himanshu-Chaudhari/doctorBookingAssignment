@@ -8,11 +8,7 @@ export default function Dashboard() {
 
   return (
     <div className=" bg-white text-gray-800">
-      {/* Navbar */}
-      <NavbarDB setRole={setRole} setOperation={setOperation} />
-
-      {/* Main Content */}
-      
+      <NavbarDB setRole={setRole} setOperation={setOperation} />    
         {role !== null ? (
           <Auth operation={operation} role={role} />
         ) : (

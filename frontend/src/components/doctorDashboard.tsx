@@ -1,15 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-interface AppointmentType {
-  doctor: string;
-  patient: {
-    name: string;
-  };
-  appointmentDate: string;
-  notes?: string | null | undefined;
-  _id: string;
-}
+import { AppointmentType } from "../utils/types";
 
 export default function DoctorDashboard() {
   const [appointments, setAppointments] = useState<AppointmentType[]>([]);
@@ -39,7 +30,6 @@ export default function DoctorDashboard() {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     getAppointments();

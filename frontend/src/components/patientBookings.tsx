@@ -1,32 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Appointment } from "../utils/types";
 
-type Appointment = {
-  appointmentDate: string; 
-  createdAt: string; 
-  doctor: {
-    name : string
-  };
-  fees: number; 
-  notes?: string; 
-  status: string;
-};
 
 export default function PatientBookings() {
-  const [bookedAppointments, setBookedAppointments] = useState<Appointment[]>(
-    []
-  );
-
+  const [bookedAppointments, setBookedAppointments] = useState<Appointment[]>([]);
   const getBookedAppointments = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/patient/bookedAppointments`,
-        {
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/patient/bookedAppointments`,{  
           headers: {
             key: localStorage.getItem("patientToken") || "",
           },
-        }
-      );
+      });
       if (response.status === 200) {
         setBookedAppointments(response.data.data);
       }
@@ -67,13 +53,7 @@ export default function PatientBookings() {
                 </p>
                 <p className="text-gray-600">
                   <span className="font-medium">Status:</span>{" "}
-                  <span
-                    className={`${
-                      appointment.status === "scheduled"
-                        ? "text-green-500"
-                        : "text-red-500"
-                    }`}
-                  >
+                  <span className={`${appointment.status === "scheduled"? "text-green-500": "text-red-500" }`} >
                     {appointment.status}
                   </span>
                 </p>
@@ -94,10 +74,7 @@ export default function PatientBookings() {
                     minute: "2-digit",
                   })}
                 </p>
-                <button
-                  className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
-                  onClick={() => alert("View Details coming soon!")}
-                >
+                <button className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition" onClick={() => alert("View Details coming soon!")}>
                   View Details
                 </button>
               </div>
