@@ -3,42 +3,15 @@ import express, { Request, Response } from 'express';
 import z from 'zod';
 import jwt from 'jsonwebtoken';
 import { Appointment, Doctor, Patient, Transaction } from '../../db/model';
-
 import dotenv from "dotenv";
 import { patientAuth, PatientRequest } from '../../auth/auth';
 import mongoose, { mongo } from 'mongoose';
 import { ClientSession } from 'mongoose';
 import { console } from 'inspector';
+import { AppointmentType, bookSlotBody, ResponseSignInUpType, SignInBodyType, signInSchema, SignUpBodyType, signUpSchema } from '../../services/types';
 dotenv.config();
 
 export const patientRouter = express.Router()
-
-const signUpSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(4, "Password must be at least 6 characters long"),
-    name: z.string().min(1, "Name is required"),
-});
-
-const signInSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(4, "Password must be at least 6 characters long"),
-});
-
-export interface SignUpBodyType {
-    email: string;
-    password: string;
-    name: string;
-}
-
-export interface SignInBodyType {
-    email: string;
-    password: string;
-}
-
-export interface ResponseSignInUpType {
-    message: string;
-    token?: string;
-}
 
 patientRouter.post('/signup', async (req: Request<{}, {}, SignUpBodyType>, res: Response<ResponseSignInUpType>): Promise<any> => {
     const body = req.body;
@@ -169,22 +142,6 @@ patientRouter.get("/balance", patientAuth, async (req : PatientRequest, res: Res
         res.status(500).json({ error: "Failed to fetch doctors" });
     }
 });
-
-const bookSlotBody = z.object({
-    doctorEmail: z.string().email(),
-    date: z.string(),
-    reason : z.string(),
-    doctorId : z.string()
-});
-
-interface AppointmentType {
-    doctor: mongoose.Types.ObjectId,
-    patient: mongoose.Types.ObjectId,
-    appointmentDate: Date,
-    fees: Number,
-    notes?: string | null | undefined,
-    _id: mongoose.Types.ObjectId
-}
 
 patientRouter.post("/bookSlot", patientAuth, async (req, res: Response) => {
     const patientEmail = (req as PatientRequest).patientEmail;

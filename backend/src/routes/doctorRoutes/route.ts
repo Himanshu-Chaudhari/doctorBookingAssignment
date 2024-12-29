@@ -1,40 +1,12 @@
 import express, { NextFunction, Request, Response } from 'express';
-import z from 'zod';
 import jwt from 'jsonwebtoken';
 import { Appointment, Doctor } from '../../db/model';
 import { doctorAuth , DoctorRequest } from '../../auth/auth';
-
 import dotenv from "dotenv";
+import { ResponseSignInUpType, SignInBodyType, signInSchema, SignUpBodyType, signUpSchema } from '../../services/types';
 dotenv.config();
 
 export const doctorRouter = express.Router();
-
-const signUpSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(4, "Password must be at least 6 characters long"),
-    name: z.string().min(1, "Name is required"),
-});
-
-const signInSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(4, "Password must be at least 6 characters long"),
-});
-
-export interface SignUpBodyType {
-    email: string;
-    password: string;
-    name: string;
-}
-
-export interface SignInBodyType {
-    email: string;
-    password: string;
-}
-
-export interface ResponseSignInUpType {
-    message: string;
-    token?: string;
-}
 
 doctorRouter.post('/signup', async (req: Request<{}, {}, SignUpBodyType>, res: Response<ResponseSignInUpType>): Promise<any> => {
     const body = req.body;
@@ -115,7 +87,6 @@ doctorRouter.post('/signin', async (req: Request<{}, {}, SignInBodyType>, res: R
         });
     }
 });
-
 
 doctorRouter.get('/getSchedule',doctorAuth,async (req,res)=>{
     const id = (req as DoctorRequest).doctorId;

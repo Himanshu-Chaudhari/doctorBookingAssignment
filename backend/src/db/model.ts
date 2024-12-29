@@ -36,7 +36,7 @@ const patientSchema = new mongoose.Schema({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     password: { type: String, required: true, minlength: 4, maxlength: 16 },
-    wallet: { type: Number, default: 500 },
+    wallet: { type: Number},
     deposits: [{date: Date,amount: Number}],
     doctorsVisited: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Doctor'}],
     appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }],
